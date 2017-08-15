@@ -1,12 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
-var checkNotLogin = require('../middlewares/check').checkLogin;
+var PostModel = require('../models/posts');
+var CommentModel = require('../models/comments');
+var checkLogin = require('../middlewares/check').checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章首页
 //eg:GET /posts?author=xxx
-router.get('/',function(req,res,next){
-  res.send(req.flash());
+router.get('/', function(req, res, next) {
+  var author = req.query.author;
+
+  PostModel.getPosts(author)
+      .then(function (posts) {
+        res.render('posts', {
+          posts: posts
+        });
+      })
+      .catch(next);
 });
 
 //POSTS /posts 发表一篇文章
