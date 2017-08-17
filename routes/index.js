@@ -8,7 +8,8 @@ module.exports = function(app) {
   app.use('/signup',require('./signup'));
   app.use('/signin',require('./signin'));
   app.use('/signout',require('./signout'));
-  app.use('/posts',require('./post'));
+  console.log('the app is here');
+  app.use('/posts',require('./posts'));
   //404page
   app.use(function(req,res){
     if(!res.headersSent){
